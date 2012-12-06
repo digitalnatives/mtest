@@ -1,0 +1,2 @@
+{Server} = require('../lib/server')
+Server.listen(4000)
