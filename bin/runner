@@ -1,5 +1,7 @@
+#!/usr/bin/env coffee
+
 {getIP}     = require __dirname+'/../lib/vendor/ip'
-request     = require 'request'
+request     = require __dirname+'/../node_modules/request'
 http        = require 'http'
 querystring = require 'querystring'
 
@@ -51,6 +53,7 @@ start = (port,page,cluster) ->
 port = 4001
 page = "http://10.0.5.111:3000/"
 cluster = [
+  ["http://10.0.8.9", ['firefox','ie']]
   ["http://localhost",['firefox','chrome']]
 ]
 start port,page, cluster

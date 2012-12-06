@@ -1,12 +1,12 @@
 {
   "name": "mtest",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "author": "DigitalNatives",
   "description": "Multibrowser test environment",
   "preferGlobal": "true",
   "bin": {
-    "mtest-server": "coffee ./bin/server",
-    "mtest-runner": "coffee ./bin/runner"
+    "mtest-server": "./bin/server",
+    "mtest-runner": "./bin/runner"
   },
   "dependencies" : {
   	"request"		: "*"
