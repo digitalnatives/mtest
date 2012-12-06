@@ -1,4 +1,4 @@
-{getIP}     = require '../lib/vendor/ip'
+{getIP}     = require __dirname+'/../lib/vendor/ip'
 request     = require 'request'
 http        = require 'http'
 querystring = require 'querystring'

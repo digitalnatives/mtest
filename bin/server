@@ -1,2 +1,2 @@
-{Server} = require('../lib/server')
+{Server} = require(__dirname+'/../lib/server')
 Server.listen(4000)
