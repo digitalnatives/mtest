@@ -4,7 +4,6 @@ http = require('http')
 request = require('request')
 {Runner} = require './test-runner'
 
-browsers = exports.browsers = []
 exports.Server = http.createServer (req,res) ->
 
   [url,query] = req.url.split("?")
@@ -12,7 +11,7 @@ exports.Server = http.createServer (req,res) ->
 
   switch url
     when "/start"
-      Runner.start @browsers.slice(), query.page, query.endpoint
+      Runner.start query.browsers.split("|"), query.page, query.endpoint
       res.end()
     when "/report"
       data = ""
