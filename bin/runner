@@ -71,6 +71,6 @@ start = (port,page) ->
     runner.start 4231, port, page, ips
   , 5000
 
-port = 4001
-page = "http://10.0.5.111:3000/"
+port = nconf.get('port')
+page = nconf.get('page')
 start port,page
