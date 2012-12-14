@@ -2,13 +2,13 @@ request   = require 'request'
 {Chrome}  = require './browsers/chrome'
 {IE}      = require './browsers/ie'
 {Firefox} = require './browsers/firefox'
-{Opera}   = require './browsers/opera'
+{Safari}  = require './browsers/safari'
 
 BROWSERS =
   chrome: new Chrome
   firefox: new Firefox
   ie: new IE
-  opera: new Opera
+  safari: new Safari
 
 exports.Runner = new class Runner
   constuctor: ->

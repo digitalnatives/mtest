@@ -5,7 +5,7 @@ fs = require 'fs'
 # TODO temporary profile delete
 
 class Firefox extends Browser
-  @PREFS = '''
+  @PREFS: '''
     user_pref("browser.shell.checkDefaultBrowser", false);
     user_pref("browser.bookmarks.restore_default_bookmarks", false);
     '''
@@ -15,6 +15,8 @@ class Firefox extends Browser
         "firefox"
       when "win32"
         process.env.ProgramFiles + '\\Mozilla Firefox\\firefox.exe'
+      when "darwin"
+        '/Applications/Firefox.app/Contents/MacOS/firefox-bin'
 
   createProfile: (callback) ->
     console.log '   Creating temporary profile for firefox...'
@@ -25,7 +27,7 @@ class Firefox extends Browser
     p.on "close", =>
       match = errorOutput.match /at\s\'([^'']+)prefs.js\'/
       @path = match[1] if match
-      fs.writeFileSync @path+"/perfs.js", @PERFS
+      fs.writeFileSync @path+"/prefs.js", Firefox.PREFS
       callback()
 
   start: (url,callback)->
