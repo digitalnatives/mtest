@@ -3,6 +3,6 @@
 	"ip": "10.0.5.111",
 	"port": 4001,
 	"cluster": {
-		"10.0.8.4": ["safari","firefox","chrome"]
+		"10.0.8.4": ["ios"]
 	}
 }
