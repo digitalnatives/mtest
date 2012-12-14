@@ -1,4 +1,5 @@
 {Browser} = require './browser'
+{spawn}   = require 'child_process'
 
 class IE extends Browser
   constructor: ->

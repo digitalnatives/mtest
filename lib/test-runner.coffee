@@ -2,11 +2,13 @@ request   = require 'request'
 {Chrome}  = require './browsers/chrome'
 {IE}      = require './browsers/ie'
 {Firefox} = require './browsers/firefox'
+{Opera}   = require './browsers/opera'
 
 BROWSERS =
   chrome: new Chrome
   firefox: new Firefox
   ie: new IE
+  opera: new Opera
 
 exports.Runner = new class Runner
   constuctor: ->
@@ -29,7 +31,9 @@ exports.Runner = new class Runner
     if @child
       BROWSERS[@currentName].teardown()
       console.log "   Killing browser >> #{@currentName}:#{process.platform}"
-      process.kill @child.pid
+      try
+        process.kill @child.pid
+      catch e
 
   next: ->
     @kill()

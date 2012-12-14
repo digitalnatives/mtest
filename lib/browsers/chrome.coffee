@@ -11,6 +11,8 @@ class Chrome extends Browser
         "/opt/google/chrome/chrome"
       when "win32"
         process.env.LOCALAPPDATA + '\\Google\\Chrome\\Application\\chrome.exe'
+      when "darwin"
+      	'/Users/mbeothy/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
   teardown: ->
 

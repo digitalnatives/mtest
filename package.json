@@ -1,6 +1,6 @@
 {
   "name": "mtest",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "DigitalNatives",
   "description": "Multibrowser test environment",
   "preferGlobal": "true",
