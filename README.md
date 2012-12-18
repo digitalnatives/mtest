@@ -39,7 +39,20 @@ Where the # are the counts.
 After this request the **mtest-server** closes the current and opens the next browser in the queue or sends reports to the runner
 if no browsers are left.
 
-If there is even one failed step in any of the reports the test is considered fail and the **mtest-runner** will exit with code 1.
+If there is even one failed step in any of the reports the test is considered failed and the **mtest-runner** will exit with code 1.
+
+## IE setup
+For IE you will need to add the hostname/ip of the server hosting the test page to your local networks,
+and maybe lower security in order for the XHR request to reach localhost.
+
+## Supported Browsers / Platforms
+  * linux: chrome / firefox
+  * windows: chrome / firefox / ie
+  * mac: chrome / firefox / safari
+
+More browsers will be added in the future.
+
+_Currenty the values for the app paths are hard wired, there will be configuration for this in the future_
 
 # Example Scenario
 mtest.json:
