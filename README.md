@@ -15,20 +15,34 @@ MTest uses `mtest.json` for configuration:
 ```json
 {
   "page": "http://{{ip/hostname}}:{{port}}",
-	"ip": "{{ip of the machine runnig the runner}}",
-	"port": 4001,
-	"cluster": {
-		"{{remote ip}}": ["{{browser}}","{{browser}}",...]
-	}
+  "ip": "{{ip of the machine runnig the runner}}",
+  "port": 4001,
+  "cluster": {
+    "{{remote ip}}": ["{{browser}}","{{browser}}",...]
+  }
 }
 ```
 
 ### Executables
 MTest comes with two executables:
-  * `mtest-runner` this is responsible for calling remote machines. This process will exit with 0 for sucess or 1 for failure.
-  * `mtest-server` this is the executable to be run on the servers
+  * `mtest-runner` This is responsible for calling remote machines. This process will exit with 0 for sucess or 1 for failure.
+  * `mtest-server` This is the executable to be run on the servers
 
-# Example
+### Running Tests
+When the page opens in the browser it's expected to run the tests and send the results to (POST) ```http://localhost:400/report```
+with the following json:
+```json
+{ "failed": #, "passed": #, "skipped": #, "pending": #, "count": #}
+```
+Where the # are the counts.
+
+After this request the **mtest-server** closes the current and opens the next browser in the queue or sends reports to the runner
+if no browsers are left.
+
+If there is even one failed step in any of the reports the test is considered fail and the **mtest-runner** will exit with code 1.
+
+# Example Scenario
+mtest.json:
 ```json
 {
   "page": "http://192.168.0.1:3000",
