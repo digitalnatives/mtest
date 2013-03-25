@@ -16,16 +16,16 @@ class Runner
     [server,browsers] = item
     query =
       browsers: browsers.join("|")
-      pages: @pages.join("|")
       endpoint :@endpoint
-    console.log query
-    "http://#{server}:#{@clientPort}/start?"+querystring.stringify query
+    ["http://#{server}:#{@clientPort}/start?"+querystring.stringify(query), @pages.join("|") ]
 
   next: ->
     item = @cluster.shift()
     if item
       console.log 'Calling '+item[0]
-      request.get @assembeURL(item), ->
+      [url,body] = @assembeURL(item)
+      console.log body
+      request {url: url, method: "POST", body: body}, ->
     else
       exitCode = 0
       for r in results

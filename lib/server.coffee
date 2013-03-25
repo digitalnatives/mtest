@@ -11,12 +11,16 @@ exports.Server = http.createServer (req,res) ->
 
   switch url
     when "/start"
-      Runner.start query.browsers.split("|"), query.pages.split("|"), query.endpoint
-      res.end()
+      pages = ""
+      req.on "data", (chunk) ->
+        pages += chunk.toString()
+      req.on "end", ->
+        console.log pages
+        Runner.start query.browsers.split("|"), pages.split("|"), query.endpoint
+        res.end()
     when "/report"
       data = ""
-      req.on "data", (chunk) ->
-        data += chunk.toString()
+      req.on "data", (chunk) -> data += chunk.toString()
       req.on "end", ->
         Runner.report JSON.parse(data), ->
           res.end()
