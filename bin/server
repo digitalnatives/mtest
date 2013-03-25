@@ -1,3 +1,5 @@
 #!/usr/bin/env coffee
 {Server} = require(__dirname+'/../lib/server')
 Server.listen(4000)
+
+console.log 'Server running on port 4000'

@@ -1,8 +1,9 @@
 {
-	"page": "http://10.0.5.111:3000",
+	"pages": ["http://10.0.5.111:3000/_features/login.feature",
+						"http://10.0.5.111:3000/_features/breadcrumbs.feature"],
 	"ip": "10.0.5.111",
 	"port": 4001,
 	"cluster": {
-		"10.0.8.4": ["ios"]
+		"10.0.5.111": ["chrome","firefox"]
 	}
 }

@@ -8,7 +8,7 @@ fs          = require 'fs'
 
 results = []
 class Runner
-  start: (@clientPort, @serverPort, @page, @cluster, @ip)->
+  start: (@clientPort, @serverPort, @pages, @cluster, @ip)->
     @endpoint = "http://"+@ip+":"+@serverPort+"/"
     @next()
 
@@ -16,8 +16,9 @@ class Runner
     [server,browsers] = item
     query =
       browsers: browsers.join("|")
-      page: @page
+      pages: @pages.join("|")
       endpoint :@endpoint
+    console.log query
     "http://#{server}:#{@clientPort}/start?"+querystring.stringify query
 
   next: ->
@@ -52,15 +53,15 @@ Server = http.createServer (req,res) ->
       res.end()
       runner.next()
 
-start = (port,page,cluster, ip) ->
+start = (port,pages,cluster, ip) ->
   Server.listen port
-  runner.start 4000, port, page, cluster, ip
+  runner.start 4000, port, pages, cluster, ip
 
 try
   config = JSON.parse(fs.readFileSync('mtest.json'))
   cluster = []
   for key, value of config.cluster
     cluster.push [key, value]
-  start config.port, config.page, cluster, config.ip
+  start config.port, config.pages, cluster, config.ip
 catch e
   console.log e

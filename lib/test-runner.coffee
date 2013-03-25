@@ -14,8 +14,8 @@ BROWSERS =
 exports.Runner = new class Runner
   constuctor: ->
 
-  start: (@browsers, @page, @endpoint) ->
-    console.log "Starting session >> browsers(#{@browsers}) page(#{@page}) endpoint(#{@endpoint})"
+  start: (@browsers, @pages, @endpoint) ->
+    console.log "Starting session >> browsers(#{@browsers}) pages(#{@pages}) endpoint(#{@endpoint})"
     @child = null
     @next()
 
@@ -24,9 +24,10 @@ exports.Runner = new class Runner
     console.log "   Sending report...."+@endpoint+"report"
     data.platform = process.platform
     data.browser = @currentName
+    data.page = @currentPage
     request.post @endpoint+"report", body: JSON.stringify(data), =>
       callback()
-      @next()
+      @nextPage()
 
   kill: ->
     if @child
@@ -36,13 +37,21 @@ exports.Runner = new class Runner
         process.kill @child.pid
       catch e
 
+  nextPage: ->
+    @kill()
+    @currentPage = @currentPages.pop()
+    return @next() unless @currentPage
+    console.log "   Starting Browser >> #{@currentName}:#{process.platform}"
+    @currentBrowser.start @currentPage, (@child) =>
+
+
   next: ->
     @kill()
+    @currentPages = @pages.slice()
     @currentName = @browsers.shift()
     @currentBrowser = BROWSERS[@currentName]
     if @currentBrowser
-      console.log "   Starting Browser >> #{@currentName}:#{process.platform}"
-      @currentBrowser.start @page, (@child) =>
+      @nextPage()
     else
       console.log "   Calling finish...."
       request.get @endpoint+"finished", -> console.log "Session ended!"
